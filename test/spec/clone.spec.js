@@ -10,17 +10,14 @@ require('shelljs/global');
 
 module.exports = function(hg) {
 
+    var cloneDestinationPath = testsuite.repoTestFolders[2];
     beforeEach(function() {
-        hg.clone(testsuite.remoteRepository, testsuite.clonedRepositoryPath, function(err) {
+        hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
             should(err).not.exists;
         });
     });
 
     it('should have cloned project into a specific directory', function() {
-        should.exist(testsuite.clonedRepositoryPath + '/.hg');
-    });
-
-    afterEach(function() {
-        del.sync([testsuite.clonedRepositoryPath]);
+        should.exist(cloneDestinationPath + '/.hg');
     });
 };

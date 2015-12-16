@@ -6,6 +6,8 @@ var testsuite = require('../testsuite');
 
 module.exports = function(hg) {
 
+    var repoPath = testsuite.repoTestFolders[0];
+
     it('should add files to the hg repo', function(done) {
         var fakeFile = new gutil.File(testsuite.testFiles[0]);
         var hgAdd = hg.add(function(err) {
@@ -13,7 +15,7 @@ module.exports = function(hg) {
         });
         hgAdd.on('data', function(newFile) {
             should.exist(newFile);
-            should.exist(testsuite.repositoryPath + '.hg/objects/');
+            should.exist(repoPath + '.hg/objects/');
             done();
         });
         hgAdd.write(fakeFile);
@@ -30,7 +32,7 @@ module.exports = function(hg) {
         });
         hgAdd.on('data', function(newFile) {
             should.exist(newFile);
-            should.exist(testsuite.repositoryPath + '.hg/objects/');
+            should.exist(repoPath + '.hg/objects/');
         });
         fakeFiles.forEach(function(file) {
             hgAdd.write(file);

@@ -5,8 +5,10 @@ var testsuite = require('../testsuite');
 var del = require('del');
 
 module.exports = function(hg) {
+    var cloneDestinationPath = testsuite.repoTestFolders[4];
+
     beforeEach(function() {
-        hg.clone(testsuite.remoteRepository, testsuite.clonedRepositoryPath);
+        hg.clone(testsuite.remoteRepository, cloneDestinationPath, {cwd: cloneDestinationPath});
     });
 
     it('should update an hg repo', function(done) {
@@ -14,9 +16,5 @@ module.exports = function(hg) {
             should.not.exists(err);
             done();
         });
-    });
-
-    afterEach(function() {
-        del.sync([testsuite.clonedRepositoryPath]);
     });
 };

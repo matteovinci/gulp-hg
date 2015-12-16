@@ -5,6 +5,7 @@ var gutil = require('gulp-util');
 var hg = require('../');
 var testsuite = require('./testsuite');
 var del = require('del');
+require('shelljs/global');
 
 
 // Disable logging
@@ -42,6 +43,7 @@ describe('gulp-hg', function() {
 
 
     after(function() {
-        del.sync([testsuite.repositoryPath, testsuite.clonedRepositoryPath, testsuite.clonedRepositoryPathCwd]);
+        cd(__dirname);
+        del.sync([testsuite.repositoriesPaths]);
     });
 });

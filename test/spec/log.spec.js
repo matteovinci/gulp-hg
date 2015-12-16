@@ -7,8 +7,10 @@ var testsuite = require('../testsuite');
 
 module.exports = function(hg) {
 
+    var repoPath = testsuite.repoTestFolders[0];
+
     it('should hg log', function(done) {
-        var opt = {cwd: testsuite.repositoryPath};
+        var opt = {cwd: repoPath};
 
         hg.log(opt, function(err, stdout) {
             should(err).be.eql(null);

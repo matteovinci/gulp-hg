@@ -7,7 +7,7 @@ var testsuite = require('../testsuite');
 module.exports = function(hg) {
 
     it('should merge branches', function(done) {
-        var opt = {cwd: './test/' + testsuite.repositoryName + '/'};
+        var opt = {cwd: testsuite.repoTestFolders[0]};
         hg.merge('testBranch', opt, function(err) {
             should(err).not.exists;
             setTimeout(function() {

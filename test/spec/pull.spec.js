@@ -3,21 +3,21 @@
 var should = require('should');
 var testsuite = require('../testsuite');
 var del = require('del');
+require('shelljs/global');
 
 module.exports = function(hg) {
 
+    var cloneDestinationPath = testsuite.repoTestFolders[3];
+
     beforeEach(function() {
-        hg.clone(testsuite.remoteRepository, testsuite.clonedRepositoryPath);
+        hg.clone(testsuite.remoteRepository, cloneDestinationPath);
     });
 
     it('should pull from the remote repo', function(done) {
-        hg.pull(function(err, stdout) {
+        cd(cloneDestinationPath);
+        hg.pull({cwd: cloneDestinationPath}, function(err, stdout) {
             should.not.exists(err);
             done();
         });
-    });
-
-    afterEach(function() {
-        del.sync([testsuite.clonedRepositoryPath]);
     });
 };
