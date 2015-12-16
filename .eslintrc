@@ -86,7 +86,7 @@
     "space-unary-ops": [2, { "words": true, "nonwords": false }],
 
     // Disallow undeclared variables (unless mentioned in /*global ...*/ comment)
-    "no-undef": 2,
+    //"no-undef": 2,
 
     // Warn if single newline at end of file is missing
     "eol-last": 1,

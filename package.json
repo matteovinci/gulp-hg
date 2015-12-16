@@ -20,9 +20,12 @@
     "mocha": "^2.3.0",
     "should": "^7.1.0"
   },
-  "repository": "bitbucket:ssh://hg@bitbucket.org/matteovinci/gulp-hg",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/matteovinci/gulp-hg"
+  },
   "bugs": {
-    "url": "https://bitbucket.org/matteovinci/gulp-hg/issues"
+    "url": "https://github.com/matteovinci/gulp-hg/issues"
   },
   "keywords": [
     "gulp",
