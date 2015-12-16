@@ -10,7 +10,7 @@ require('shelljs/global');
 
 module.exports = function(hg) {
 
-    var cloneDestinationPath = testsuite.repoTestFolders[2];
+    var cloneDestinationPath = testsuite.repoTestFolders[1];
     beforeEach(function() {
         hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
             should(err).not.exists;

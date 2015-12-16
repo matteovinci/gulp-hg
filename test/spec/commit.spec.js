@@ -30,7 +30,7 @@ module.exports = function(hg) {
     });
 
     it('should fire an end event', function(done) {
-        var fakeFile = testsuite.testFiles[2];
+        var fakeFile = testsuite.testFiles[1];
         var opt = {cwd: repoPath};
         var hgCommit = hg.commit(defaultMessage, opt, function(err) {
             should(err).not.exists;
@@ -45,7 +45,7 @@ module.exports = function(hg) {
     });
 
     it('should commit a file to the repo using raw arguments only', function(done) {
-        var fakeFile = testsuite.testFiles[3];
+        var fakeFile = testsuite.testFiles[2];
         var opt = {cwd: repoPath, args: '-m "initial commit"', disableMessageRequirement: true};
         var hgCommit = hg.commit(undefined, opt, function(err) {
             should(err).not.exists;

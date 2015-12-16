@@ -18,14 +18,11 @@ fs.mkdirSync(repositoriesPaths);
 var repoTestFolders = (function() {
     /**
      * repository-test-0: test init, branch, add, commit, status, log
-     * repository-test-1: test clone-cwd
-     * repository-test-2: test clone
-     * repository-test-3: test pull, update
-     * repository-test-4: test update
+     * repository-test-1: test clone, pull, update
      * @type {Array}
      */
     var dirs = [];
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 2; i++) {
         dirs[i] = repositoriesPaths + '/repository-test-' + i + '/';
         fs.mkdirSync(dirs[i]);
     }
