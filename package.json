@@ -1,0 +1,37 @@
+{
+  "name": "gulp-hg",
+  "version": "1.0.2",
+  "description": "Gulp plugin for Mercurial",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --timeout 60000 test/main.js && eslint ./index.js ./example.js ./lib/. ./test/."
+  },
+  "dependencies": {
+    "any-shell-escape": "^0.1.1",
+    "del": "^2.2.0",
+    "gulp-util": "^3.0.6",
+    "require-dir": "^0.1.0",
+    "shelljs": "^0.5.3",
+    "through2": "^0.6.5"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "jshint": "^2.8.0",
+    "mocha": "^2.3.0",
+    "should": "^7.1.0"
+  },
+  "repository": "bitbucket:ssh://hg@bitbucket.org/matteovinci/gulp-hg",
+  "bugs": {
+    "url": "https://bitbucket.org/matteovinci/gulp-hg/issues"
+  },
+  "keywords": [
+    "gulp",
+    "hg",
+    "mercurial",
+    "gulphg",
+    "gulpplugin",
+    "gulp-plugin"
+  ],
+  "author": "Matteo Vinci <matteovinci88@gmail.com> (https://www.linkedin.com/in/matteovinci)",
+  "license": "MIT"
+}

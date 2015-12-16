@@ -1,0 +1,18 @@
+'use strict';
+
+var fs = require('fs');
+var should = require('should');
+var gutil = require('gulp-util');
+var testsuite = require('../testsuite');
+
+module.exports = function(hg) {
+
+    it('should hg log', function(done) {
+        var opt = {cwd: testsuite.repositoryPath};
+
+        hg.log(opt, function(err, stdout) {
+            should(err).be.eql(null);
+            done();
+        });
+    });
+};
