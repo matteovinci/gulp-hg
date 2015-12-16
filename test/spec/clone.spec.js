@@ -20,4 +20,11 @@ module.exports = function(hg) {
     it('should have cloned project into a specific directory', function() {
         should.exist(cloneDestinationPath + '/.hg');
     });
+
+    it('should update an hg repo', function(done) {
+        hg.update({cwd: cloneDestinationPath}, function(err, stdout) {
+            should.not.exists(err);
+            done();
+        });
+    });
 };
