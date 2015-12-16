@@ -11,8 +11,8 @@ lib-cov
 pids
 logs
 results
-test/repository-test
-test/repository-test/*
+test/repository-test/tmp
+test/repository-test/cloned
 
 npm-debug.log
 node_modules
