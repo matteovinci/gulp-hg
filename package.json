@@ -12,17 +12,19 @@
     "gulp-util": "^3.0.6",
     "require-dir": "^0.1.0",
     "shelljs": "^0.5.3",
-    "through2": "^0.6.5"
+    "through2": "^0.6.5",
+    "walk": "^2.3.9"
   },
   "devDependencies": {
     "eslint": "^1.10.3",
     "jshint": "^2.8.0",
     "mocha": "^2.3.0",
-    "should": "^7.1.0"
+    "should": "^7.1.0",
+    "walk": "^2.3.9"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/matteovinci/gulp-hg"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matteovinci/gulp-hg"
   },
   "bugs": {
     "url": "https://github.com/matteovinci/gulp-hg/issues"

@@ -43,6 +43,6 @@ describe('gulp-hg', function() {
 
     after(function() {
         cd(__dirname);
-        //del.sync([testsuite.repositoriesPaths]);
+        del.sync([testsuite.repositoriesPaths]);
     });
 });
