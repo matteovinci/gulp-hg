@@ -5,7 +5,7 @@ require('shelljs/global');
 
 module.exports = function(hg) {
 
-    var cloneDestinationPath = testsuite.repoTestFolders[1];
+    var cloneDestinationPath = testsuite.repoTestFolders[0];
     var cwd = process.cwd();
 
     beforeEach(function(done) {

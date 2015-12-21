@@ -16,9 +16,8 @@ describe('gulp-hg', function() {
 
     var testSuite = fs.readdirSync(__dirname + '/spec');
     var testFirst = [
-        'clone',
-        'utils',
         'init',
+        'utils',
         'branch',
         'add',
         'commit',
@@ -26,7 +25,7 @@ describe('gulp-hg', function() {
         'log'
     ];
 
-    testFirst.concat('merge', 'push', 'pull', 'update').forEach(function(file) {
+    testFirst.concat('merge', 'push', 'pull', 'update', 'clone').forEach(function(file) {
         testSuite.splice(testSuite.indexOf(file), 1);
     });
 
