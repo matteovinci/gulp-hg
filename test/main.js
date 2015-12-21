@@ -9,13 +9,15 @@ require('shelljs/global');
 
 
 // Disable logging
-gutil.log = function() {};
+gutil.log = function() {
+};
 
 describe('gulp-hg', function() {
 
     var testSuite = fs.readdirSync(__dirname + '/spec');
     var testFirst = [
         'clone',
+        'utils',
         'init',
         'branch',
         'add',

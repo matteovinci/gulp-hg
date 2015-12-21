@@ -11,20 +11,22 @@ require('shelljs/global');
 module.exports = function(hg) {
 
     var cloneDestinationPath = testsuite.repoTestFolders[1];
-    beforeEach(function() {
+    var cwd = process.cwd();
+
+    beforeEach(function(done) {
         hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
             should(err).not.exists;
+            cd(cloneDestinationPath);
+            done();
         });
+
     });
 
     it('should have cloned project into a specific directory', function() {
-        should.exist(cloneDestinationPath + '/.hg');
+        hg.utils.isHg().should.be.equal(true);
     });
 
-    it('should update an hg repo', function(done) {
-        hg.update({cwd: cloneDestinationPath}, function(err, stdout) {
-            should.not.exists(err);
-            done();
-        });
+    afterEach(function() {
+        cd(cwd);
     });
 };

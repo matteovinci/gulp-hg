@@ -1,5 +1,3 @@
-[![NPM version][npm-image]][npm-url]
-[![Downloads][downloads-image]][downloads-url]
 
 #gulp-hg
 
@@ -386,6 +384,15 @@ hg.pull({args : '--branch my-branch'}, function (error, stdout) {
   	//pull completed	
   }
 });
+```
+
+##Utils
+### hg.utils.isHg()
+
+Check if the current directory is a mercurial repository
+
+```js
+var isHg = hg.utils.isHg();
 ```
 
 
