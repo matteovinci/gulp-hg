@@ -14,7 +14,7 @@ module.exports = function(hg) {
     var cwd = process.cwd();
 
     beforeEach(function(done) {
-        hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
+        hg.clone(testsuite.remoteRepository, cloneDestinationPath, {args: '--insecure'}, function(err) {
             should(err).not.exists;
             cd(cloneDestinationPath);
             done();
