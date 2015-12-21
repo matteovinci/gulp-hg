@@ -14,16 +14,17 @@ module.exports = function(hg) {
     var cwd = process.cwd();
 
     beforeEach(function(done) {
-        hg.clone(testsuite.remoteRepository, cloneDestinationPath, {args: '--insecure'}, function(err) {
+        hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
             should(err).not.exists;
-            cd(cloneDestinationPath);
             done();
         });
 
     });
 
-    it('should have cloned project into a specific directory', function() {
+    it('should have cloned project into a specific directory', function(done) {
+        cd(cloneDestinationPath);
         hg.utils.isHg().should.be.equal(true);
+        done();
     });
 
     afterEach(function() {
