@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/matteovinci/gulp-hg.svg?branch=master)](https://travis-ci.org/matteovinci/gulp-hg)
+[![npm version](https://badge.fury.io/js/gulp-hg.svg)](https://badge.fury.io/js/gulp-hg)
 
 #gulp-hg
 
