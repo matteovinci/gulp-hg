@@ -18,14 +18,13 @@ describe('gulp-hg', function() {
     var testFirst = [
         'init',
         'utils',
-        'branch',
         'add',
         'commit',
         'status',
         'log'
     ];
 
-    testFirst.concat('merge', 'push', 'pull', 'update', 'clone').forEach(function(file) {
+    testFirst.concat('merge', 'push', 'pull', 'update', 'clone', 'branch').forEach(function(file) {
         testSuite.splice(testSuite.indexOf(file), 1);
     });
 

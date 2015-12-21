@@ -8,20 +8,6 @@ module.exports = function(hg) {
 
     var repoPath = testsuite.repoTestFolders[0];
 
-    it('should add files to the hg repo', function(done) {
-        var fakeFile = new gutil.File(testsuite.testFiles[0]);
-        var hgAdd = hg.add(function(err) {
-            should(err).not.exists;
-        });
-        hgAdd.on('data', function(newFile) {
-            should.exist(newFile);
-            should.exist(repoPath + '.hg/objects/');
-            done();
-        });
-        hgAdd.write(fakeFile);
-        hgAdd.end();
-    });
-
     it('should add multiple files to the hg repo', function(done) {
         var fakeFiles = [];
         testsuite.testFiles.forEach(function(name) {
@@ -39,5 +25,4 @@ module.exports = function(hg) {
         });
         hgAdd.end(done);
     });
-
 };

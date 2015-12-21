@@ -32,14 +32,18 @@ var repoTestFolders = (function() {
 var fileContents = function() {
     var testFile = 'test-file.js';
 
-    fs.openSync(repoTestFolders[0] + testFile, 'w');
-    return fs.readFileSync(repoTestFolders[0] + testFile);
+    if (fs.existsSync(repoTestFolders[0] + testFile)) {
+        return fs.readFileSync(repoTestFolders[0] + testFile);
+    } else {
+        fs.openSync(repoTestFolders[0] + testFile, 'w');
+        return fs.readFileSync(repoTestFolders[0] + testFile);
+    }
 };
 
 var testFiles = (function() {
     var testFiles = [];
     var repo = repoTestFolders[0];
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 10; i++) {
         testFiles[i] = {
             base: repo,
             cwd: repo,
