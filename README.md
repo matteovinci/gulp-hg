@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/matteovinci/gulp-hg.svg?branch=master)](https://travis-ci.org/matteovinci/gulp-hg)
 [![npm version](https://badge.fury.io/js/gulp-hg.svg)](https://badge.fury.io/js/gulp-hg)
+[![Bower version](https://badge.fury.io/bo/gulp-hg.svg)](https://badge.fury.io/bo/gulp-hg)
+[![Build Status](https://travis-ci.org/matteovinci/gulp-hg.svg?branch=master)](https://travis-ci.org/matteovinci/gulp-hg)
 
 #gulp-hg
 
@@ -16,7 +17,7 @@
 ## Usage
 ### Install
     npm install gulp-hg --save
-    
+
 ### Features
 Support for the following mercurial method (NB: new updates are coming soon):
 
@@ -383,7 +384,7 @@ Show the working tree log
 ```js
 hg.pull({args : '--branch my-branch'}, function (error, stdout) {
   if (!error){
-  	//pull completed	
+  	//pull completed
   }
 });
 ```

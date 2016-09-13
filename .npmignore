@@ -11,7 +11,12 @@ lib-cov
 pids
 logs
 results
-test/test-repositories/
+demo
+node_modules
+index.html
+params.json
+javascripts
+stylesheets
 
 npm-debug.log
 node_modules

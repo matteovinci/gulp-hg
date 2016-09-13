@@ -1,0 +1,30 @@
+{
+    "name": "gulp-hg",
+    "description": "Gulp plugin for Mercurial",
+    "main": "index.js",
+    "authors": [
+        "Matteo Vinci <matteovinci88@gmail.com>"
+    ],
+    "license": "ISC",
+    "keywords": [
+        "gulp",
+        "hg",
+        "mercurial",
+        "gulphg",
+        "gulpplugin",
+        "gulp-plugin"
+    ],
+    "homepage": "https://github.com/matteovinci/gulp-hg",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "index.html",
+        "javascripts",
+        "params.json",
+        "stylesheets",
+        "test",
+        "tests"
+    ],
+    "moduleType": "node"
+}
