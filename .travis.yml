@@ -1,9 +1,10 @@
 language: node_js
 node_js:
-  - "4.1"
-  - "4.0"
-  - "0.12"
-  - "iojs"
+    - "node"
+    - "6"
+    - "5"
+    - "4"
+    - "iojs"
 
 addons:
-  ssh_known_hosts: bitbucket.org
+    ssh_known_hosts: bitbucket.org
