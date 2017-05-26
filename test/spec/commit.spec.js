@@ -3,10 +3,29 @@
 const fs = require('fs');
 const should = require('should');
 const testsuite = require('../testsuite');
+const gutil = require('gulp-util');
 
 module.exports = function(hg) {
     const REPO_PATH = testsuite.repoTestFolders[0];
     const DEFAULT_COMMIT_MESSAGE = 'initial commit';
+
+    beforeEach(function(done) {
+        var fakeFiles = [];
+        testsuite.testFiles.forEach(function(name) {
+            fakeFiles.push(new gutil.File(name));
+        });
+        var hgAdd = hg.add(function(err) {
+            should(err).not.exists;
+        });
+        hgAdd.on('data', function(newFile) {
+            should.exist(newFile);
+            should.exist(REPO_PATH + '.hg/objects/');
+        });
+        fakeFiles.forEach(function(file) {
+            hgAdd.write(file);
+        });
+        hgAdd.end(done);
+    });
 
     it('should commit a file to the repo', function(done) {
         const FAKE_FILE = testsuite.testFiles[0];
