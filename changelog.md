@@ -1,4 +1,4 @@
-1.0.5 / 2017-05-25
+1.0.5 / 2017-05-26
 * Added support for `hg revert`
 * Added support for `hg summary`
 * Added support for `hg branch` with no branch name (returns the current branch name)
