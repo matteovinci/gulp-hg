@@ -2,9 +2,10 @@
     "name": "gulp-hg",
     "version": "1.0.4",
     "description": "Gulp plugin for Mercurial",
-    "main": "index.js",
+    "main": "./index.js",
     "scripts": {
-        "test": "mocha --reporter spec --timeout 60000 test/main.js && eslint ./index.js ./example.js ./lib/. ./test/."
+        "pretest": "eslint ./index.js ./lib/. ./test/.",
+        "test": "mocha --reporter spec --timeout 60000 test/main.js"
     },
     "dependencies": {
         "any-shell-escape": "^0.1.1",

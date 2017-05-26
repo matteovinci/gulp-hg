@@ -1,43 +1,47 @@
 'use strict';
+/* global cd */
 
-var fs = require('fs');
-var gutil = require('gulp-util');
-var hg = require('../');
-var testsuite = require('./testsuite');
-var del = require('del');
 require('shelljs/global');
-
+const fs = require('fs'),
+    gutil = require('gulp-util'),
+    hg = require('../'),
+    testsuite = require('./testsuite'),
+    del = require('del');
 
 // Disable logging
-gutil.log = function() {
-};
+gutil.log = function() {};
 
 describe('gulp-hg', function() {
-
     var testSuite = fs.readdirSync(__dirname + '/spec');
     var testFirst = [
         'init',
         'utils',
+        'revert',
         'add',
         'commit',
         'status',
-        'log'
+        'log',
+        'summary',
+        'clone',
+        'pull',
+        'branch',
+        'branches',
+        'update',
+        'push'
     ];
 
-    testFirst.concat('merge', 'push', 'pull', 'update', 'clone', 'branch').forEach(function(file) {
+    testFirst.concat('merge').forEach(function(file) {
         testSuite.splice(testSuite.indexOf(file), 1);
     });
 
     testSuite.unshift.apply(testSuite, testFirst);
 
-
     testSuite.forEach(function(filename) {
         describe(filename, function() {
-            // the actual suite code
+            // require the related suite code
             require('./spec/' + filename + '.spec.js')(hg);
         });
     });
-
 
     after(function() {
         cd(__dirname);

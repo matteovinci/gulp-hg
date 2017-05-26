@@ -1,19 +1,16 @@
 'use strict';
 
-var fs = require('fs');
-var should = require('should');
-var gutil = require('gulp-util');
-var testsuite = require('../testsuite');
+const fs = require('fs');
+const should = require('should');
+const testsuite = require('../testsuite');
+const gutil = require('gulp-util');
 
 module.exports = function(hg) {
-
-    var repoPath = testsuite.repoTestFolders[0];
-
+    var REPO_PATH = testsuite.repoTestFolders[0];
     it('should hg status', function(done) {
-        var opt = {cwd: repoPath};
+        var opt = {cwd: REPO_PATH};
         var fakeFile = new gutil.File(testsuite.testFiles[0]);
         fs.openSync(fakeFile.path, 'w');
-
         hg.status(opt, function(err, stdout) {
             should(err).not.exists;
             fs.exists(fakeFile.path, function(exists) {

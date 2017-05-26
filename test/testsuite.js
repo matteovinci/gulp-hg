@@ -1,14 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var should = require('should');
-var gutil = require('gulp-util');
-var del = require('del');
+const fs = require('fs'),
+    should = require('should'),
+    del = require('del'),
+    REMOTE_REPOSITORY = 'https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo',
+    repositoriesPaths = __dirname + '/test-repositories/',
+    TEST_BRANCH = 'test-branch';
 
-var remoteRepository = 'ssh://hg@bitbucket.org/matteovinci/gulp-hg';
-var repositoriesPaths = __dirname + '/test-repositories/';
-
-//Setup
+// Setup
 if (fs.existsSync(repositoriesPaths)) {
     del.sync([repositoriesPaths]);
 }
@@ -23,7 +22,7 @@ var repoTestFolders = (function() {
      */
     var dirs = [];
     for (var i = 0; i < 2; i++) {
-        dirs[i] = repositoriesPaths + '/repository-test-' + i + '/';
+        dirs[i] = repositoriesPaths + 'repository-test-' + i + '/';
         fs.mkdirSync(dirs[i]);
     }
     return dirs;
@@ -57,7 +56,9 @@ var testFiles = (function() {
 
 module.exports = {
     repositoriesPaths: repositoriesPaths,
-    remoteRepository: remoteRepository,
+    REMOTE_REPOSITORY: REMOTE_REPOSITORY,
+    DEFAULT_BRANCH: 'default',
+    TEST_BRANCH: TEST_BRANCH,
     fileContents: fileContents(),
     testCommit: repoTestFolders[0] + '.hg/last-message.txt',
     testFiles: testFiles,

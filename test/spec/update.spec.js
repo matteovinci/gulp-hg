@@ -1,15 +1,18 @@
 'use strict';
 
-var should = require('should');
-var testsuite = require('../testsuite');
-var del = require('del');
+const should = require('should');
+const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
+    it('should update the default branch', function(done) {
+        hg.update(testsuite.DEFAULT_BRANCH, {cwd: testsuite.repoTestFolders[1]}, function(err, stdout) {
+            should.not.exists(err);
+            done();
+        });
+    });
 
-    var cloneDestinationPath = testsuite.repoTestFolders[1];
-
-    it('should update an hg repo', function(done) {
-        hg.update({cwd: cloneDestinationPath}, function(err, stdout) {
+    it('should update the current branch', function(done) {
+        hg.update({cwd: testsuite.repoTestFolders[1]}, function(err, stdout) {
             should.not.exists(err);
             done();
         });

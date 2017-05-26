@@ -1,12 +1,11 @@
 'use strict';
 
-var should = require('should');
-var gutil = require('gulp-util');
-var testsuite = require('../testsuite');
+const should = require('should');
+const gutil = require('gulp-util');
+const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
-
-    var repoPath = testsuite.repoTestFolders[0];
+    var REPO_PATH = testsuite.repoTestFolders[0];
 
     it('should add multiple files to the hg repo', function(done) {
         var fakeFiles = [];
@@ -18,7 +17,7 @@ module.exports = function(hg) {
         });
         hgAdd.on('data', function(newFile) {
             should.exist(newFile);
-            should.exist(repoPath + '.hg/objects/');
+            should.exist(REPO_PATH + '.hg/objects/');
         });
         fakeFiles.forEach(function(file) {
             hgAdd.write(file);

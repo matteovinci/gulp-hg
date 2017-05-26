@@ -1,19 +1,17 @@
 'use strict';
 
-var fs = require('fs');
-var should = require('should');
-var exec = require('child_process').exec;
-var testsuite = require('../testsuite');
+const fs = require('fs');
+const should = require('should');
+const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
+    const REPO_PATH = testsuite.repoTestFolders[0];
+    const DEFAULT_COMMIT_MESSAGE = 'initial commit';
 
-    var repoPath = testsuite.repoTestFolders[0];
-
-    var defaultMessage = 'initial commit';
     it('should commit a file to the repo', function(done) {
-        var fakeFile = testsuite.testFiles[0];
-        var opt = {cwd: repoPath};
-        var hgCommit = hg.commit(defaultMessage, opt, function(err) {
+        const FAKE_FILE = testsuite.testFiles[0];
+        var opt = {cwd: REPO_PATH};
+        var hgCommit = hg.commit(DEFAULT_COMMIT_MESSAGE, opt, function(err) {
             should(err).not.exists;
         });
         hgCommit.once('end', function() {
@@ -21,18 +19,18 @@ module.exports = function(hg) {
                 should.exist(testsuite.testCommit);
                 fs.readFileSync(testsuite.testCommit)
                     .toString('utf8')
-                    .should.match(/initial commit/);
+                    .should.match(new RegExp(DEFAULT_COMMIT_MESSAGE));
                 done();
             }, 100);
         });
-        hgCommit.write(fakeFile);
+        hgCommit.write(FAKE_FILE);
         hgCommit.end();
     });
 
     it('should fire an end event', function(done) {
-        var fakeFile = testsuite.testFiles[1];
-        var opt = {cwd: repoPath};
-        var hgCommit = hg.commit(defaultMessage, opt, function(err) {
+        const FAKE_FILE = testsuite.testFiles[1];
+        var opt = {cwd: REPO_PATH};
+        var hgCommit = hg.commit(DEFAULT_COMMIT_MESSAGE, opt, function(err) {
             should(err).not.exists;
         });
 
@@ -40,13 +38,13 @@ module.exports = function(hg) {
             done();
         });
 
-        hgCommit.write(fakeFile);
+        hgCommit.write(FAKE_FILE);
         hgCommit.end();
     });
 
     it('should commit a file to the repo using raw arguments only', function(done) {
-        var fakeFile = testsuite.testFiles[2];
-        var opt = {cwd: repoPath, args: '-m "initial commit"', disableMessageRequirement: true};
+        const FAKE_FILE = testsuite.testFiles[2];
+        var opt = {cwd: REPO_PATH, args: '-m "' + DEFAULT_COMMIT_MESSAGE + '"', disableMessageRequirement: true};
         var hgCommit = hg.commit(undefined, opt, function(err) {
             should(err).not.exists;
         });
@@ -54,11 +52,11 @@ module.exports = function(hg) {
             setTimeout(function() {
                 fs.readFileSync(testsuite.testCommit)
                     .toString('utf8')
-                    .should.match(/initial commit/);
+                    .should.match(new RegExp(DEFAULT_COMMIT_MESSAGE));
                 done();
             }, 100);
         });
-        hgCommit.write(fakeFile);
+        hgCommit.write(FAKE_FILE);
         hgCommit.end();
     });
 };

@@ -1,15 +1,11 @@
 'use strict';
 
-var should = require('should');
-var testsuite = require('../testsuite');
-var del = require('del');
+const should = require('should');
+const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
-
-    var cloneDestinationPath = testsuite.repoTestFolders[1];
-
     it('should pull from the remote repo', function(done) {
-        hg.pull({cwd: cloneDestinationPath}, function(err, stdout) {
+        hg.pull({cwd: testsuite.repoTestFolders[1]}, function(err, stdout) {
             should.not.exists(err);
             done();
         });

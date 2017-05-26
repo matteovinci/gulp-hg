@@ -5,9 +5,10 @@ const should = require('should');
 const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
-    it('should merge branches', function(done) {
-        var opt = {cwd: testsuite.repoTestFolders[0]};
-        hg.merge(testsuite.TEST_BRANCH, opt, function(err) {
+    var REPO_PATH = testsuite.repoTestFolders[0];
+    it('should hg revert --all', function(done) {
+        var opt = {args: '--all', cwd: REPO_PATH};
+        hg.revert(opt, function(err, stdout) {
             should(err).be.eql(null);
             done();
         });

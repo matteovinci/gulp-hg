@@ -1,27 +1,28 @@
 'use strict';
+/* global cd */
 
-var fs = require('fs');
-var should = require('should');
-var gutil = require('gulp-util');
-var testsuite = require('../testsuite');
-var del = require('del');
-var exec = require('child_process').exec;
 require('shelljs/global');
+const fs = require('fs');
+const should = require('should');
+const testsuite = require('../testsuite');
+const del = require('del');
+const exec = require('child_process').exec;
 
 module.exports = function(hg) {
-
-    var cloneDestinationPath = testsuite.repoTestFolders[1];
+    const CLONE_DESTINATION_PATH = testsuite.repoTestFolders[1];
 
     beforeEach(function(done) {
-        hg.clone(testsuite.remoteRepository, cloneDestinationPath, function(err) {
+        hg.clone(testsuite.REMOTE_REPOSITORY, CLONE_DESTINATION_PATH, function(err) {
             should(err).not.exists;
             done();
         });
     });
 
     it('should have cloned project into a specific directory', function(done) {
-        cd(cloneDestinationPath);
-        hg.utils.isHg().should.be.equal(true);
-        done();
+        cd(CLONE_DESTINATION_PATH);
+        setTimeout(function() {
+            hg.utils.isHg().should.be.equal(true);
+            done();
+        }, 100);
     });
 };

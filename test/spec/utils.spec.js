@@ -1,25 +1,16 @@
 'use strict';
+/* global cd */
 
-var testsuite = require('../testsuite');
-require('shelljs/global');
+const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
+    const CWD = process.cwd();
 
-    var cloneDestinationPath = testsuite.repoTestFolders[0];
-    var cwd = process.cwd();
-
-    beforeEach(function(done) {
-        cd(cloneDestinationPath);
-        done();
+    it('should check if the current working directory is a mercurial repo', function() {
+        hg.utils.isHg({cwd: testsuite.repoTestFolders[0]}).should.be.equal(true);
     });
 
-    it('should check if the current working directory is a mercurial repo', function(done) {
-        hg.utils.isHg().should.be.equal(true);
-        done();
-    });
-
-    afterEach(function(done) {
-        cd(cwd);
-        done();
+    afterEach(function() {
+        cd(CWD);
     });
 };

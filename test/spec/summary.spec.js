@@ -1,13 +1,13 @@
 'use strict';
 
-const fs = require('fs');
 const should = require('should');
 const testsuite = require('../testsuite');
 
 module.exports = function(hg) {
-    it('should merge branches', function(done) {
-        var opt = {cwd: testsuite.repoTestFolders[0]};
-        hg.merge(testsuite.TEST_BRANCH, opt, function(err) {
+    var REPO_PATH = testsuite.repoTestFolders[0];
+    it('should hg summary', function(done) {
+        var opt = {cwd: REPO_PATH};
+        hg.summary(opt, function(err, stdout) {
             should(err).be.eql(null);
             done();
         });

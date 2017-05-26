@@ -19,158 +19,213 @@
     npm install gulp-hg --save
 
 ### Features
-Support for the following mercurial method (NB: new updates are coming soon):
+Support for the following mercurial methods
 
- * add
- * branch
- * clone
- * commit
  * init
- * log
+ * clone
+ * add
+ * commit
+ * branch
+ * branches
  * merge
+ * log
  * pull
  * push
  * status
  * update
+ * summary
+ * revert
 
-##Example
+## Example
 
 ```javascript
 var gulp = require('gulp');
-var hg = require('../');
+var hg = require('gulp-hg');
 
-//init repository
+// Init repository
 gulp.task('init', function() {
     hg.init(function(error, stdout) {
-        if(!error){
-        	//repository initialized
+        if (!error) {
+        	// Repository initialized
         }
     });
 });
 
-
-// add files
-gulp.task('add', function() {
-    gulp.src('./*')
-        .pipe(hg.add(function(error, stdout){
-        	if(!error){
-				//add completed
-			}
-        });
+// Clone remote repository to current directory
+gulp.task('clone', function() {
+    hg.clone('https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo', function(error, stdout) {
+        if (!error) {
+            // Completed
+        }
+    });
 });
 
+// Clone remote repository to a specific folder
+gulp.task('clonesubfolder', function() {
+    hg.clone('https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo', './sub/folder', function(error, stdout) {
+        if (!error) {
+            // Completed
+        }
+    });
+});
 
-// commit files
-gulp.task('commit', function() {
-    gulp.src('./*', {buffer: false})
-        .pipe(hg.commit('initial commit', function(error, stdout){
-        	if(!error){
-				//add completed
+// Add all files within a specific folder (or in the current one ./*)
+gulp.task('add', function() {
+    gulp.src('./my-files/*')
+        .pipe(hg.add(function(error, stdout) {
+        	if (!error) {
+				// Completed
 			}
         }));
 });
 
-// commit files with arguments
+
+// Commit files within a specific folder (or in the current one ./*)
+gulp.task('commit', function() {
+    gulp.src('./my-files-to-be-committed/*', {buffer: false})
+        .pipe(hg.commit('initial commit', function(error, stdout) {
+        	if (!error) {
+				// Completed
+			}
+        }));
+});
+
+// Commit files with arguments
 gulp.task('commitargs', function() {
-    gulp.src('./*')
-        .pipe(hg.commit('initial commit', {args: ' * v'}, function(error, stdout){
-			if(!error){
-				//add completed
+    gulp.src('./my-files-to-be-committed/*')
+        .pipe(hg.commit('initial commit', {args: '--amend'}, function(error, stdout) {
+			if (!error) {
+				// Completed
 			}
 		}));
 });
 
-// clone remote repository to current directory
-gulp.task('clone', function() {
-    hg.clone('ssh://hg@bitbucket.org/matteovinci/gulp-hg', function(error, stdout) {
-        // handle error
-    });
-});
-
-// clone remote repository to folder
-gulp.task('clonesubfolder', function() {
-    hg.clone('ssh://hg@bitbucket.org/matteovinci/gulp-hg', './sub/folder', function(error, stdout) {
-        // handle error
-    });
-});
-
-// merge
-gulp.task('merge', function() {
-    hg.merge(function(error, stdout) {
-        //if (error) ...
-    });
-});
-
-// push to remote repository
-gulp.task('push', function() {
-    hg.push('ssh://hg@bitbucket.org/matteovinci/gulp-hg', function(error, stdout){
-	if(!error){
-		//push completed
-	}
-  });
+// Commit files with raw arguments only
+gulp.task('commitargs', function() {
+    gulp.src('./my-files-to-be-committed/*')
+        .pipe(hg.commit(undefined, {args: '-m "First commit"', disableMessageRequirement: true}, function(error, stdout) {
+			if (!error) {
+				// Completed
+			}
+		}));
 });
 
 
-// pull from remote repository
-gulp.task('pull', function() {
-    hg.pull(function(error, stdout){
-		if(!error){
-			//push completed
-		}
-  });
-});
-
-// status
-gulp.task('status', function() {
-    hg.status(function(error, stdout){
-		if(!error){
-			//status completed
-		}
-	});
-});
-
-// log
-gulp.task('log', function() {
-    hg.log(function(error, stdout){
-		if(!error){
-			//push completed
-		}
-	});
-});
-
-// pull
-gulp.task('pull', function() {
-    hg.pull(function(error, stdout){
-		if(!error){
-			//pull completed
-		}
-	});
-});
-
-// branch
+// Branch
+// Get the current branch name
 gulp.task('branch', function() {
-    hg.branch('new-branch', function(error, stdout){
-		if(!error){
-			//branch completed
+    hg.branch({cwd: './myRepoPath'}, function(error, branchName) {
+		if (!error) {
+		    // Completed
+			console.log('Current branch name', branchName);
 		}
 	});
 });
 
-// merge
+// Create a new branch on the repository
+gulp.task('branch', function() {
+    hg.branch('new-branch', {cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Branch created successfully
+		}
+	});
+});
+
+// Branches list
+gulp.task('branches', function() {
+    hg.branches({cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Completed
+			console.log('Branches', stdout);
+		}
+	});
+});
+
+// Merge
 gulp.task('merge', function() {
-    hg.merge('development', function(error, stdout){
-		if(!error){
-			//merge completed
+    hg.merge({cwd: './myRepoPath'}, function(error, stdout) {
+        if (!error) {
+            // Completed
+        }
+    });
+});
+
+// Log
+gulp.task('log', function() {
+    hg.log(function(error, stdout) {
+		if (!error) {
+			// Push completed
 		}
 	});
 });
 
-// default gulp task
-gulp.task('default', ['add']);
+// Pull from remote repository
+gulp.task('pull', function() {
+    hg.pull({cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+  });
+});
+
+// Push to remote repository
+gulp.task('push', function() {
+    hg.push('https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo', {cwd: './myRepoPath'}, function(error, stdout) {
+        if (!error) {
+            // Completed
+        }
+  });
+});
+
+// Status
+gulp.task('status', function() {
+    hg.status({cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+	});
+});
+
+// Update
+// Using a specific branch
+gulp.task('update', function() {
+    hg.update('default', {cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+	});
+});
+
+// Using the current branch
+gulp.task('update', function() {
+    hg.update({cwd: './myRepoPath'}, function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+	});
+});
+
+// Summary
+gulp.task('summary', function() {
+    hg.summary(function(error, stdout) {
+		if (!error) {
+			// Summary completed
+		}
+  });
+});
+
+// Revert
+gulp.task('revert', function() {
+    hg.revert(function(error, stdout) {
+		if (!error) {
+			// Revert completed
+		}
+  });
+});
 
 ```
 
-##API
+## API
 
 ### hg.init(options, callback)
 `hg init`
@@ -182,44 +237,50 @@ Creates an empty hg repository
 `callback`: function, passed error (if any) and command stdout
 
 ```js
-hg.init({args:'options'}, function (error, stdout) {
-  //if (error) ...
+hg.init({cwd: 'myRepoFolder'}, function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
 });
 ```
 
-### hg.clone(remote_repo, options, callback)
-`hg clone <remote_repo> <options>`
+### hg.clone(remote, options, callback)
+`hg clone <remote> <options>`
 
 Clones a remote repository for the first time in the current folder
 
-`remote_repo`: String, remote url
+`remote`: String, remote url
 
 `options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
 
 `callback`: function, passed error (if any) and command stdout
 
 ```js
-hg.clone('https://remote.hg', function (error, stdout) {
-  //if (error) ...
+hg.clone('https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo', function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
 });
 ```
 
-### hg.clone(remote_repo, destination_folder, options, callback)
-`hg clone <remote_repo> <destination_folder> <options>`
+### hg.clone(remote, destination, options, callback)
+`hg clone <remote> <destination> <options>`
 
 Clones a remote repository to a destination folder
 
-`remote_repo`: String, remote url
+`remote`: String, remote url
 
-`destination_folder`: String, destination folder
+`destination`: String, destination folder
 
 `options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
 
 `callback`: function, passed error (if any) and command stdout
 
 ```js
-hg.clone('https://remote.hg', './my-sub-folder', function (error, stdout) {
-  //if (error) ...
+hg.clone('https://matteovinci@bitbucket.org/matteovinci/gulp-hg-test-repo', './my-sub-folder', function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
 });
 ```
 
@@ -234,13 +295,12 @@ Adds files to repository
 
 ```js
 gulp.src('./*')
-  .pipe(hg.add(function(error, stdout){
-  	if(!error){
-  		//add completed
+  .pipe(hg.add(function(error, stdout) {
+  	if (!error) {
+  		// Add completed
   		console.log('stdout', stdout);
   	}
   }));
-});
 ```
 
 ### hg.commit(message, options, callback)
@@ -256,65 +316,63 @@ Commits changes to repository
 
 ```js
 gulp.src('./*')
-  .pipe(hg.commit('commit message', function(error, stdout){
-  	if(!error){
-  		//commit completed
+  .pipe(hg.commit('commit message', function(error, stdout) {
+  	if (!error) {
+  		// Commit completed
   	}
   }));
-});
 ```
-
-### hg.pull(options, callback)
-`hg pull`
-
-Pulls changes from remote repository
-
-`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
-
-`callback`: function, passed error (if any) and command stdout
-
-```js
-hg.pull(function(error, stdout){
-	if(!error){
-		//commit completed
-	}
-  });
-```
-
-### hg.push(branch, options, callback)
-`hg push <branch>`
-
-Pushes changes to remote repository
-
-`branch`: String, branch, default: `master`
-
-`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
-
-`callback`: function, passed error (if any) and command stdout
-
-```js
-hg.push('default', function(error, stdout){
-	if(!error){
-		//commit completed
-	}
- });
-```
-
 ### hg.branch(branch, options, callback)
 `hg branch <new branch name>`
 
 Creates a new branch but doesn't switch to it
 
-`branch`: String, branch
+`branch`: String (optional), branch to create (if not defined the function will return the current tip branch)
 
 `options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
 
 `callback`: function, passed error (if any) and command stdout
 
 ```js
-hg.branch('development', function(error, stdout){
-	if(!error){
-		//branch completed
+hg.branch('development', function(error, stdout) {
+	if (!error) {
+		// Branch added
+	}
+  });
+```
+
+### hg.branch(options, callback)
+`hg branch <new branch name>`
+
+Returns the current branch name
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
+
+`callback`: function, passed error (if any) and command stdout
+
+```js
+hg.branch(function(error, stdout) {
+	if (!error) {
+		// Completed
+		console.log('Current branch', stdout);
+	}
+  });
+```
+
+### hg.branches(options, callback)
+`hg branches`
+
+List repository named branches
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
+
+`callback`: function, passed error (if any) and command stdout
+
+```js
+hg.branches(function(error, stdout) {
+	if (!error) {
+		// Completed
+		console.log('Branches', stdout);
 	}
   });
 ```
@@ -331,11 +389,64 @@ Merges a branch into the current branch
 `callback`: function, passed error (if any) and command stdout
 
 ```js
-hg.merge('development', function(error, stdout){
-	if(!error){
-		//branch completed
+hg.merge('development', function(error, stdout) {
+	if (!error) {
+		// branch completed
 	}
   });
+```
+
+### hg.log(options, callback)
+`hg status <options>`
+
+Show the working tree log
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path', maxBuffer: 200 * 1024}`
+
+`callback`: function (optional), passed error and command stdout
+
+```js
+hg.log({args : '-v'}, function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
+});
+```
+
+### hg.pull(options, callback)
+`hg pull`
+
+Pulls changes from remote repository
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
+
+`callback`: function, passed error (if any) and command stdout
+
+```js
+hg.pull(function(error, stdout) {
+	if (!error) {
+		// Commit completed
+	}
+  });
+```
+
+### hg.push(branch, options, callback)
+`hg push <branch>`
+
+Pushes changes to remote repository
+
+`branch`: String, branch, default: `default`
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path'}`
+
+`callback`: function, passed error (if any) and command stdout
+
+```js
+hg.push('default', function(error, stdout) {
+	if (!error) {
+		// Commit completed
+	}
+ });
 ```
 
 ### hg.status(options, callback)
@@ -349,26 +460,80 @@ Show the working tree status
 
 ```js
 hg.status({args : '--tag'}, function (error, stdout) {
-  if (!error){
-  	//status completed
-  }
+    if (!error) {
+        // Operation completed
+    }
 });
 ```
 
-### hg.log(options, callback)
-`hg status <options>`
+### hg.update(branch, options, callback)
+`hg update <branch> <options>`
 
-Show the working tree log
+Update the repository to a specific branch
+
+`branch`: String (optional), branch
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path', maxBuffer: 200 * 1024}`
+
+`callback`: function (optional), passed error (if any) and command stdout
+
+```js
+// Using a specific branch
+gulp.task('update', function() {
+    hg.update('default', function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+	});
+});
+
+// Using the current branch
+gulp.task('update', function() {
+    hg.update(function(error, stdout) {
+		if (!error) {
+			// Completed
+		}
+	});
+});
+```
+
+### hg.summary(options, callback)
+`hg summary <options>`
+
+Summarize working directory state
 
 `options`: Object (optional) `{args: 'options', cwd: '/cwd/path', maxBuffer: 200 * 1024}`
 
 `callback`: function (optional), passed error and command stdout
 
 ```js
-hg.log({args : '--tag'}, function (error, stdout) {
-  if (!error){
-  	//log completed
-  }
+hg.summary(function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
+});
+
+hg.summary({args: '--remote'}, function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
+});
+```
+
+### hg.revert(options, callback)
+`hg revert <options>`
+
+Restore files to their checkout state
+
+`options`: Object (optional) `{args: 'options', cwd: '/cwd/path', maxBuffer: 200 * 1024}`
+
+`callback`: function (optional), passed error and command stdout
+
+```js
+hg.revert({args: '--all'}, function (error, stdout) {
+    if (!error) {
+        // Operation completed
+    }
 });
 ```
 
@@ -383,7 +548,7 @@ Show the working tree log
 
 ```js
 hg.pull({args : '--branch my-branch'}, function (error, stdout) {
-  if (!error){
+  if (!error) {
   	//pull completed
   }
 });
@@ -394,8 +559,10 @@ hg.pull({args : '--branch my-branch'}, function (error, stdout) {
 
 Check if the current directory is a mercurial repository
 
+`options`: Object (optional) `{cwd: '/cwd/path'}`
+
 ```js
-var isHg = hg.utils.isHg();
+var isHg = hg.utils.isHg({cwd: './pathToMyCurrentRepoFolder'});
 ```
 
 
@@ -404,7 +571,7 @@ var isHg = hg.utils.isHg();
 
 (MIT License)
 
-Copyright (c) 2015 Matteo Vinci <matteovinci88@gmail.com> https://www.linkedin.com/in/matteovinci
+Copyright (c) 2017 Matteo Vinci <matteovinci88@gmail.com> https://www.linkedin.com/in/matteovinci
 
 
 
@@ -429,7 +596,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
-
-
