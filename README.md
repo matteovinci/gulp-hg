@@ -1,8 +1,7 @@
 [![npm version](https://badge.fury.io/js/gulp-hg.svg)](https://badge.fury.io/js/gulp-hg)
-[![Bower version](https://badge.fury.io/bo/gulp-hg.svg)](https://badge.fury.io/bo/gulp-hg)
 [![Build Status](https://travis-ci.org/matteovinci/gulp-hg.svg?branch=master)](https://travis-ci.org/matteovinci/gulp-hg)
 
-#gulp-hg
+# gulp-hg
 
 <table>
 <tr>
